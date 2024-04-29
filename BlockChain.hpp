@@ -18,24 +18,31 @@ public:
     Block getBlock(int index);
     // getBlock(string hash); //not implemented
     int getNumOfBlocks(void);
-    int addBlock(int index, string prevHash, string hash, string nonce, vector<string> &merkle);
+    int addBlock(int index, string prevHash, string hash, string nonce, vector<string> &merkle, string timestamp,int minerID);
     string getLatestBlockHash(void);
     // void toString(void);
     string toJSON(void);
     int replaceChain(json chain);
+    void printBlockchain() const;
 private:
     vector<unique_ptr<Block> > blockchain; //vector that is the blockchain
 };
-
+void BlockChain::printBlockchain() const {
+    std::cout << "\nBlockchain:\n";
+    for (const auto& block : blockchain) {
+        block->toString(); // Assuming toString is a member function of the Block class
+    }
+}
 // If integer passed into constructor is 0, it the first node and creates the genesis block
 BlockChain::BlockChain(int genesis ){
     if (genesis == 0) {
         vector<string> v;
         v.push_back("Genesis Block!");
         // string header = to_string(0) + string("00000000000000") + getMerkleRoot(v);
-        auto hash_nonce_pair = findHash(0,string("00000000000000"),v);
-    
-        this -> blockchain.push_back(std::make_unique<Block>(0,string("00000000000000"),hash_nonce_pair.first,hash_nonce_pair.second,v));
+        string timestamp = getCurrentTimestampAsString();
+        auto hash_nonce_pair = findHash(string("00000000000000"),v,timestamp);
+        
+        this -> blockchain.push_back(std::make_unique<Block>(0,string("00000000000000"),hash_nonce_pair.first,hash_nonce_pair.second,v, timestamp,NULL));
         printf("Created blockchain!\n");
     }
 }
@@ -55,17 +62,15 @@ int BlockChain::getNumOfBlocks(void) {
 }
 
 // checks whether data fits with the right hash -> add block
-int BlockChain::addBlock(int index, string prevHash, string hash, string nonce, vector<string> &merkle) {
-    string header = to_string(index) + prevHash + getMerkleRoot(merkle) + nonce;
-    // int a = sha256(header).compare(hash);
+int BlockChain::addBlock(int index, string prevHash, string hash, string nonce, vector<string> &merkle, string timestamp,int minerID) {
+    string header = prevHash + timestamp +getMerkleRoot(merkle) + nonce;
     // int b = (hash.substr(0,2) == "00" );
     // int c = (index == blockchain.size());
     // printf("a : %d, b : %d, c : %d", a,b,c);
-    // printf("%s\n",sha256(header));
-    // printf("%s\n",hash);
-    if ( (hash.substr(0,2) == "00" ) && (index == blockchain.size())) {
+    // printf("%d\n",c);
+    if ((hash.substr(0,2) == "00" ) && (index == blockchain.size())) {
         printf("Block hashes match --- Adding Block %s \n",hash.c_str());
-        this->blockchain.push_back(std::make_unique<Block>(index,prevHash,hash,nonce,merkle));
+        this->blockchain.push_back(std::make_unique<Block>(index,prevHash,hash,nonce,merkle,timestamp,minerID));
         return 1;
     }
     cout << "Hash doesn't match criteria\n";
@@ -96,8 +101,10 @@ int BlockChain::replaceChain(json chain) {
     for (int a = 1; a <chain["length"].get<int>(); a++ ){
         auto block = chain["data"][a];
         vector<string> data = block["data"].get<vector<string> >();
-        this->addBlock(block["index"],block["previousHash"],block["hash"],block["nonce"],data);
+        this->addBlock(block["index"],block["previousHash"],block["hash"],block["nonce"],data, block["timestamp"],block["minerID"]);
     } 
+
+
     return 1;
 }
 

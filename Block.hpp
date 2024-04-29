@@ -13,31 +13,33 @@ using json = nlohmann::json;
 
 class Block {
     public:
-        Block(int index, string prevHas, string hash, string nonce, vector<string> data);
+        Block(int index, string prevHas, string hash, string nonce, vector<string> data, string timestamp,int minerID);
         string getPreviousHash(void);
         string getHash(void);
         int getIndex(void);
         vector<string> getData(void);
-
         void toString(void);
         json toJSON(void);
     private:
         int index;
+        int minerID;
         string previousHash;
         string blockHash;
         string nonce;
         vector<string> data;
+        string timestamp;
         // string getMerkleRoot(const vector<string> &merkle);
 };
 // Constructor 
-Block::Block(int index, string prevHash, string hash, string nonce, vector<string> data ) {
+Block::Block(int index, string prevHash, string hash, string nonce, vector<string> data, string timestamp,int minerID) {
     printf("\nInitializing Block: %d ---- Hash: %s \n", index,hash.c_str());
     this -> previousHash = prevHash;
     this -> data = data;
     this -> index = index;
     this -> nonce = nonce;
     this -> blockHash = hash;
-    
+    this ->timestamp = timestamp;
+    this ->minerID = minerID;
 }
 
 int Block::getIndex(void) {
@@ -58,12 +60,17 @@ vector<string> Block::getData(void){
 
 // Prints Block data 
 void Block::toString(void) {
-    string dataString;
+    std::string dataString;
     for (int i=0; i < data.size(); i++)
         dataString += data[i] + ", ";
+    
+    // ANSI escape codes for cyan color
+    const std::string cyanColor = "\033[1;36m";
+    const std::string resetColor = "\033[0m";
+
     printf("\n-------------------------------\n");
-    printf("Block %d\nHash: %s\nPrevious Hash: %s\nContents: %s",
-        index,this->blockHash.c_str(),this->previousHash.c_str(),dataString.c_str());
+    printf("%sBlock %d\nPrevious Hash: %s\nTransactions: %s\nTimestamp: %s\nMinerID: %d\n%s",
+        cyanColor.c_str(), index, previousHash.c_str(), dataString.c_str(), timestamp.c_str(),minerID, resetColor.c_str());
     printf("\n-------------------------------\n");
 }
 
@@ -74,6 +81,8 @@ json Block::toJSON(void) {
     j["previousHash"] = this->previousHash;
     j["nonce"] = this->nonce;
     j["data"] = this->data;
+    j["timestamp"] = this->timestamp;
+    j["minerID"] = this->minerID;
     return j;
 }
 
