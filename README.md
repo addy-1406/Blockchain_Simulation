@@ -37,4 +37,13 @@ A simplified "mining" process is implemented using the `findHash` function to fi
 
 The `Block` class represents individual blocks in the blockchain. Its properties are private for immutability, and methods exist to retrieve block information but not update it.
 
-For further details and usage, refer to the source code and comments within the project files.
+## Steps to Run the Code
+
+1. Navigate to the directory where the `main.cpp` file resides.
+2. In the terminal, enter the following commands to compile the code:
+   ```bash
+   chmod +x compile.sh
+   ./compile.sh
+3. Once the compilation is successful, run an instance of the node by entering:
+   ```bash
+   ./a.out
