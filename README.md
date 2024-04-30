@@ -50,6 +50,7 @@ The `Block` class represents individual blocks in the blockchain. Its properties
 
 ## Contributors
 
+- <a href="https://github.com/addy-1406" style="text-decoration:none;">Aditya Mandal</a> 
 - [Aditya Mandal](https://github.com/addy-1406) (@addy-1406)
 - Tanish (@v-tanish012)
 - Soumyadeep (@soumyadeep-p)
