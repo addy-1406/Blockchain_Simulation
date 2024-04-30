@@ -11,7 +11,7 @@ This is a simple blockchain implementation written in C++. It follows some princ
 
 ## Command Line Interface (CLI)
 
-The project includes a CLI that allows you to interact with the blockchain. You can view blocks at different indices and add new blocks. By default, the CLI allows adding blocks up to 20 times before automatically quitting.
+The project includes a CLI that allows you to interact with the blockchain. You can view the longest chain of blockchain and add new blocks. By default, the CLI allows adding blocks up to 20 times before automatically quitting.
 
 ## Peer-to-Peer Network
 
@@ -50,8 +50,7 @@ The `Block` class represents individual blocks in the blockchain. Its properties
 
 ## Contributors
 
-- <a href="https://github.com/addy-1406" style="text-decoration:none;">Aditya Mandal</a> 
-- [Aditya Mandal](https://github.com/addy-1406) (@addy-1406)
-- Tanish (@v-tanish012)
-- Soumyadeep (@soumyadeep-p)
-- Mihit (@mihits)
+* [Aditya Mandal](https://github.com/addy-1406)
+* [Tanish](https://github.com/v-tanish012)
+* [Mihit](https://github.com/mihits)
+* [Soumyadeep](https://github.com/soumyadeep-p)
