@@ -1,4 +1,4 @@
-# Simple Blockchain Implementation in C++
+# Basic Blockchain Implementation in C++
 
 This is a simple blockchain implementation written in C++. It follows some principles from Bitcoin's design, including the use of SHA-256 for hashing, merkle trees, and a basic "mining" process.
 
@@ -47,3 +47,10 @@ The `Block` class represents individual blocks in the blockchain. Its properties
 3. Once the compilation is successful, run an instance of the node by entering:
    ```bash
    ./a.out
+
+## Contributors
+
+- Aditya Mandal (@addy-1406)
+- Tanish (@v-tanish012)
+- Soumyadeep (@soumyadeep-p)
+- Mihit (@mihits)
