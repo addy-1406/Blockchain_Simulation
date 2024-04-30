@@ -5,19 +5,19 @@
 #include <memory>
 #include <stdexcept>
 
-#include "hash.hpp"
-#include "Block.hpp"
-#include "common.hpp"
-#include "BlockChain.hpp"
-#include "requests.hpp"
+#include "Blockchain/hash.hpp"
+#include "Blockchain/Block.hpp"
+#include "Blockchain/common.hpp"
+#include "Blockchain/BlockChain.hpp"
+#include "Network/requests.hpp"
 
-#include "json.hh"
+#include "JSON/json.hh"
 using json = nlohmann::json;
 
 using namespace std;
 
-#include "client_http.hpp"
-#include "server_http.hpp"
+#include "Network/client_http.hpp"
+#include "Network/server_http.hpp"
 
 using HttpServer = SimpleWeb::Server<SimpleWeb::HTTP>;
 using HttpClient = SimpleWeb::Client<SimpleWeb::HTTP>;
